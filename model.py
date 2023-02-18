@@ -39,7 +39,6 @@ print(train_x.shape)
 train_x = train_x.reshape(-1, IMG_SIZE,IMG_SIZE, 3)
 train_y = to_categorical(train_y)
 
-
 model = Sequential()
 model.add(Conv2D(32, (3, 3), input_shape=(IMG_SIZE, IMG_SIZE, 3)))
 model.add(Activation('relu'))
