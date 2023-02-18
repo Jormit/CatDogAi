@@ -2,14 +2,12 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
 import glob
-
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
 from keras.utils import to_categorical
 
 IMG_SIZE = 64
 
-# Needs refactoring....
 def loadImageSet():
 	train_x = np.zeros(shape=(1199, IMG_SIZE, IMG_SIZE, 3))
 	train_y = np.zeros(shape=(1199))
@@ -36,7 +34,6 @@ def loadImageSet():
 
 	return train_x , train_y
 
-
 train_x, train_y = loadImageSet()
 print(train_x.shape)
 train_x = train_x.reshape(-1, IMG_SIZE,IMG_SIZE, 3)
@@ -44,22 +41,15 @@ train_y = to_categorical(train_y)
 
 
 model = Sequential()
-
 model.add(Conv2D(32, (3, 3), input_shape=(IMG_SIZE, IMG_SIZE, 3)))
 model.add(Activation('relu'))
-
 model.add(MaxPooling2D(pool_size=(2, 2)))
-
 model.add(Conv2D(32, (3, 3)))
 model.add(Activation('relu'))
-
 model.add(MaxPooling2D(pool_size=(2, 2)))
-
 model.add(Conv2D(64, (3, 3)))
 model.add(Activation('relu'))
-
 model.add(MaxPooling2D(pool_size=(2, 2)))
-
 model.add(Flatten())
 model.add(Dense(64))
 model.add(Activation('relu'))
@@ -68,9 +58,7 @@ model.add(Dense(2))
 model.add(Activation('softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-
 model.fit(train_x, train_y, epochs = 20, batch_size = 100, verbose = 1)
-
 
 q = model.predict( np.array( [train_x[0],] )  )
 plt.imshow(train_x[0])
